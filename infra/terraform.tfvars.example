@@ -1,0 +1,3 @@
+aws_region         = "us-east-1"
+infra_state_bucket = "bunzina-tfstate-<AWS_ACCOUNT_ID>"
+# rabbitmq_password nunca vai aqui: use TF_VAR_rabbitmq_password.
