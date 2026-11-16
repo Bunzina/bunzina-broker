@@ -1,4 +1,3 @@
-# O cluster é criado pelo bunzina-infra; aqui só lemos o nome dele.
 data "terraform_remote_state" "infra" {
   backend = "s3"
 
