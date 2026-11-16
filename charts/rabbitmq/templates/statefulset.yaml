@@ -7,9 +7,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-headless
-  # Sem isso, `terraform destroy` desinstala o release mas deixa o PVC (e o
-  # volume EBS) órfão depois que o cluster cai.
+  serviceName: {{ .Release.Name }}-headless  
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Retain
@@ -29,10 +27,7 @@ spec:
       securityContext:
         runAsUser: 999
         runAsGroup: 999
-        fsGroup: 999
-        # Sem isso, a cada mount o kubelet faz chmod g+rw recursivo no volume e
-        # deixa o .erlang.cookie com 660; o Erlang exige 400 e o pod entra em
-        # CrashLoopBackOff ("Cookie file ... must be accessible by owner only").
+        fsGroup: 999        
         fsGroupChangePolicy: OnRootMismatch
       terminationGracePeriodSeconds: 60
       containers:
