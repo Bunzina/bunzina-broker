@@ -30,6 +30,10 @@ spec:
         runAsUser: 999
         runAsGroup: 999
         fsGroup: 999
+        # Sem isso, a cada mount o kubelet faz chmod g+rw recursivo no volume e
+        # deixa o .erlang.cookie com 660; o Erlang exige 400 e o pod entra em
+        # CrashLoopBackOff ("Cookie file ... must be accessible by owner only").
+        fsGroupChangePolicy: OnRootMismatch
       terminationGracePeriodSeconds: 60
       containers:
         - name: rabbitmq
